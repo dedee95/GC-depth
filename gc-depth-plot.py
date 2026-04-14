@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
+#Author: Dede Kurniawan
+#Email: dedekurniawan@genomics.cn or dedearkun2710@gmail.com
+
 """
-Compute and visualize GC content vs sequencing depth per genomic window. One of rebust way to identify contamination in the genome.
+Compute and visualize GC content vs sequencing depth per genomic window. One of robust way to identify contamination in the genome.
 
 Usage: gc-depth-plot.py <fasta> <pandepth_output> [options]
 
