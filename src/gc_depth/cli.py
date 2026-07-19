@@ -5,7 +5,7 @@
 """
 Compute and visualize GC content vs sequencing depth per genomic window. One of robust way to identify contamination in the genome.
 
-Usage: gc-depth-plot.py <fasta> <pandepth_output> [options]
+Usage: gc-depth-plot <fasta> <pandepth_output> [options]
 
 Positional arguments:
   fasta                Genome FASTA file (gzipped is also fine)
@@ -18,9 +18,6 @@ Options:
   --log-depth          Use logarithmic scale for the depth axis
   --plot-only TSV      Skip processing, re-plot from an existing combined TSV (from --output-data)
   --output-data FILE   Save merged GC and depth data to this TSV file (can be reused with --plot-only)
-
-Author: Dede Kurniawan
-Email: dedekurniawan@genomics.cn or dedearkun2710@gmail.com
 """
 
 import argparse
