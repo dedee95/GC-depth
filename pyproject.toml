@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gc-depth"
+version = "0.1.0"
+description = "Compute and visualize GC content versus sequencing depth per genomic window"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE*"]
+
+authors = [
+    { name = "Dede Kurniawan", email = "dedearkun2710@gmail.com" }
+]
+
+keywords = [
+    "bioinformatics",
+    "genomics",
+    "GC content",
+    "sequencing depth",
+    "genome contamination",
+    "PanDepth"
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Bio-Informatics"
+]
+
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "scipy"
+]
+
+[project.scripts]
+gc-depth-plot = "gc_depth.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/dedee95/GC-depth"
+Repository = "https://github.com/dedee95/GC-depth"
+Issues = "https://github.com/dedee95/GC-depth/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
