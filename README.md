@@ -6,10 +6,10 @@ GC depth visualization is one of the robust methods to identify contaminants in 
 
 <img src="example/gc-depth.png" alt="GC depth visualization" width="400">
 
-## 1. Install
+## 1. Install from PyPI
 This script uses 3 common python libraries, including `numpy`, `matplotlib`, and `scipy`. Make sure all of those libraries are already installed in your system.
 ```bash
-pip install matplotlib numpy scipy
+pip install gc-depth
 ```
 
 ### (1) Clone this repository
