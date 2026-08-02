@@ -4,7 +4,7 @@
 
 GC depth visualization is one of the robust methods to identify contaminants in the genome. Since every taxon/species has different GC content, visualizing GC content with sequencing depth information can identify whether a genome has a contaminant or not. Contaminant are always present in low sequencing depth and has different GC content with the host genome. Many published paper have already implemented GC-depth visualization, but none of them have published the script to visualized it. So, here I present a Python script to compute and visualize GC content vs sequencing depth per genomic window.
 
-<img src="example/gc-depth.png" alt="GC depth visualization" width="400">
+<img src="https://github.com/dedee95/GC-depth/blob/main/example/gc-depth.png" alt="GC depth visualization" width="400">
 
 ## 1. Install from PyPI
 This script uses 3 common python libraries, including `numpy`, `matplotlib`, and `scipy`. Make sure all of those libraries are already installed in your system.
@@ -106,7 +106,7 @@ python gc-depth-plot.py Gracilaria_chilensis.genome.fa depth.win.stat.gz -w 500
 
 Here is the final GC-depth plot output from the Python script.
 
-<img src="example/gc-depth.png" alt="GC depth visualization" width="500">
+<img src="https://github.com/dedee95/GC-depth/blob/main/example/gc-depth.png" alt="GC depth visualization" width="500">
 
 Based on this figure, it is clear that there is no contamination in the genome. There is **only one distinct GC peak and depth**. If contamination were present, the figure would show more than one peak in GC content and average depth (top and right panels). Additionally, there would be multiple GC content densities in the main scatter plot. For more details on GC-depth use cases, read my Medium article.
 
