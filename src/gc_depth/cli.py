@@ -3,9 +3,9 @@
 #Email: dedekurniawan@genomics.cn or dedearkun2710@gmail.com
 
 """
-Compute and visualize GC content vs sequencing depth per genomic window. One of robust way to identify contamination in the genome.
+Compute and visualize GC content versus sequencing depth per genomic window.
 
-Usage: gc-depth-plot <fasta> <pandepth_output> [options]
+Usage: gc_depth <fasta> <pandepth_output> [options]
 
 Positional arguments:
   fasta                Genome FASTA file (gzipped is also fine)
@@ -18,6 +18,7 @@ Options:
   --log-depth          Use logarithmic scale for the depth axis
   --plot-only TSV      Skip processing, re-plot from an existing combined TSV (from --output-data)
   --output-data FILE   Save merged GC and depth data to this TSV file (can be reused with --plot-only)
+  --version            Show the installed version and exit
 """
 
 import argparse
@@ -25,11 +26,17 @@ import gzip
 import os
 import sys
 import numpy as np
+import matplotlib as mpl
+
+# Use a non-interactive backend so the CLI works on servers and HPC systems.
+mpl.use('Agg')
+
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from matplotlib.colors import LinearSegmentedColormap
-import matplotlib as mpl
 from scipy.ndimage import gaussian_filter
+
+from . import __version__
 
 class DocstringHelpParser(argparse.ArgumentParser):
     """ArgumentParser subclass that prints the module docstring verbatim for --help."""
@@ -210,7 +217,11 @@ def create_visualization(gc_arr, depth_arr, output_file, log_depth=False):
 
     print("  Calculating point density...")
     x_bins = np.linspace(gc_range_min, gc_range_max, 100)
-    y_bins = np.linspace(0, depth_max, 100)
+    if log_depth:
+        depth_min = float(np.min(depth)) * 0.8
+        y_bins = np.geomspace(depth_min, depth_max, 100)
+    else:
+        y_bins = np.linspace(0, depth_max, 100)
     hist2d, x_edges, y_edges = np.histogram2d(gc, depth, bins=[x_bins, y_bins])
     hist2d_smooth = gaussian_filter(hist2d.T, sigma=1.5)
 
@@ -276,17 +287,21 @@ def create_visualization(gc_arr, depth_arr, output_file, log_depth=False):
     # Right depth histogram
     ax_depth = fig.add_subplot(gs[1:4, 3])
     depth_range = (float(np.min(depth)) * 0.8, depth_max) if log_depth else (0, depth_max)
-    ax_depth.hist(depth, bins=60,
+    depth_bins = np.geomspace(depth_range[0], depth_range[1], 61) if log_depth else 60
+    hist_kwargs = {} if log_depth else {'range': depth_range}
+    ax_depth.hist(depth, bins=depth_bins,
                   orientation='horizontal',
                   color=colors['histogram'],
                   edgecolor=colors['histogram_edge'],
                   linewidth=0.3, alpha=0.9,
-                  range=depth_range)
+                  **hist_kwargs)
     ax_depth.axhline(y=median_depth, color=colors['average_line'],
                      linestyle='--', linewidth=1.5, alpha=0.8)
     ax_depth.set_xlabel('Numbers', fontsize=13, fontweight='bold')
     ax_depth.tick_params(axis='x', labelsize=11)
     ax_depth.set_ylabel('')
+    if log_depth:
+        ax_depth.set_yscale('log')
     ax_depth.set_ylim(depth_range)
     ax_depth.yaxis.set_tick_params(labelleft=True)
     ax_depth.grid(True, linestyle='--', alpha=0.5, color=colors['grid'], linewidth=0.5)
@@ -312,7 +327,8 @@ def create_visualization(gc_arr, depth_arr, output_file, log_depth=False):
 
 def main():
     parser = DocstringHelpParser(
-        description='Compute and visualize GC content vs sequencing depth per genomic window.',
+        prog='gc_depth',
+        description='Compute and visualize GC content versus sequencing depth per genomic window.',
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
 
@@ -330,15 +346,20 @@ def main():
                         help='Skip processing, re-plot from an existing combined TSV (from --output-data)')
     parser.add_argument('--output-data', metavar='FILE',
                         help='Save merged GC and depth data to this TSV file (can be reused with --plot-only)')
+    parser.add_argument('--version', action='version',
+                        version=f'%(prog)s {__version__}')
 
     args = parser.parse_args()
+
+    if args.window <= 0:
+        parser.error('--window must be a positive integer')
 
     ext = os.path.splitext(args.output)[1].lower()
     if ext not in ('.png', '.pdf'):
         print("Error: Output file must use .png or .pdf extension.")
         sys.exit(1)
 
-    print("gc-depth-plot")
+    print("gc_depth")
 
     if args.plot_only:
         if not os.path.exists(args.plot_only):
