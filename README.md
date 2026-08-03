@@ -92,7 +92,7 @@ samtools sort --threads 12 -o Gchilensis.aln.sorted.bam Gchilensis.aln.bam
 samtools index Gchilensis.aln.sorted.bam
 
 # run pandepth
-pandepth -i Gchilensis.aln.sorted.bam -w 500 -o depth # output: example/depth.win.stat.gz
+pandepth -i Gchilensis.aln.sorted.bam -w 500 -o depth 
 
 #run the python script
 python gc_depth Gracilaria_chilensis.genome.fa depth.win.stat.gz -w 500
