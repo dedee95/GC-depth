@@ -2,26 +2,16 @@
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)
 ![MIT license](https://img.shields.io/badge/License-MIT-Blue.svg)
 
-GC depth visualization is one of the robust methods to identify contaminants in the genome. Since every taxon/species has different GC content, visualizing GC content with sequencing depth information can identify whether a genome has a contaminant or not. Contaminant are always present in low sequencing depth and has different GC content with the host genome. Many published paper have already implemented GC-depth visualization, but none of them have published the script to visualized it. So, here I present a Python script to compute and visualize GC content vs sequencing depth per genomic window.
+GC depth visualization is one of the robust methods to identify contaminants in the genome. Since every taxon/species has different GC content, visualizing GC content with sequencing depth information can identify whether a genome has a contaminant or not. Contaminants are always present at low sequencing depth and have different GC content from the host genome. Many published papers have already implemented GC-depth visualization, but none of them have published the script to visualize it. So, here I present a Python script to compute and visualize GC content vs sequencing depth per genomic window.
 
 <img src="https://github.com/dedee95/GC-depth/blob/main/example/gc-depth.png" alt="GC depth visualization" width="400">
 
 ## 1. Install from PyPI
-This script uses 3 common python libraries, including `numpy`, `matplotlib`, and `scipy`. Make sure all of those libraries are already installed in your system.
+A very simple way to use this script is by installing it via Python PyPI.
 ```bash
 pip install gc-depth
 ```
 
-### (1) Clone this repository
-```bash
-git clone https://github.com/dedee95/GC-depth.git
-cd GC-depth/
-python gc-depth-plot.py -h
-```
-### (2) Direct download from Github
-You can just download the corresponding script `gc-depth-plot.py` and directly use it. 
-
-After downloading the script, you can type the help message (`-h` or `--help`) to see if the script is working.
 ```bash
 $ python gc-depth-plot.py -h
 Compute and visualize GC content vs sequencing depth per genomic window. One of rebust way to identify contamination in the genome.
