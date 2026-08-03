@@ -71,7 +71,7 @@ After successfully running Pandepth, you will get the output file: `depth.win.st
 
 ### 2.4 Run `gc_depth`
 ```bash
-python gc_depth genome.fa depth.win.stat.gz -w 1000
+gc_depth genome.fa depth.win.stat.gz -w 1000
 ```
 The default output file is `gc-depth.png`, If you want to change the output file as `.pdf`, you can just specify the output `-o` parameter to `-o output.pdf`.
 
@@ -95,7 +95,7 @@ samtools index Gchilensis.aln.sorted.bam
 pandepth -i Gchilensis.aln.sorted.bam -w 500 -o depth 
 
 #run the python script
-python gc_depth Gracilaria_chilensis.genome.fa depth.win.stat.gz -w 500
+gc_depth Gracilaria_chilensis.genome.fa depth.win.stat.gz -w 500
 ```
 
 Here is the final GC-depth plot output from the Python script.
