@@ -36,7 +36,7 @@ Options:
 ```
 
 ## 2. Usage step by step 
-There are several upstream steps that you must do before running `gc-depth-plot.py`. The main purpose of the initial step is to generate sequencing depth information in a specific window size.
+There are several upstream steps that you must do before running `gc_depth`. The main purpose of the initial step is to generate sequencing depth information in a specific window size.
 ### 2.1 Align raw reads to the genome
 **Short reads (Illumina or BGI/MGI-seq)**
 ```bash
@@ -62,16 +62,16 @@ samtools index aligned.sorted.bam
 ```
 
 ### 2.3 Run Pandepth to get depth information
-The `-w` value here must match the `--window` value you pass to `gc-depth-plot.py`. Read more about [Pandepth](https://github.com/HuiyangYu/PanDepth).
+The `-w` value here must match the `--window` value you pass to `gc_depth`. Read more about [Pandepth](https://github.com/HuiyangYu/PanDepth).
 ```bash
 pandepth -i aligned.sorted.bam -w 1000 -o depth
 ```
 
-After successfully running Pandepth, you will get the output file: `depth.win.stat.gz`. Use this file and `genome.fa` file as `gc-depth-plot.py` input file.
+After successfully running Pandepth, you will get the output file: `depth.win.stat.gz`. Use this file and `genome.fa` file as `gc_depth` input file.
 
-### 2.4 Run `gc-depth-plot.py`
+### 2.4 Run `gc_depth`
 ```bash
-python gc-depth-plot.py genome.fa depth.win.stat.gz -w 1000
+python gc_depth genome.fa depth.win.stat.gz -w 1000
 ```
 The default output file is `gc-depth.png`, If you want to change the output file as `.pdf`, you can just specify the output `-o` parameter to `-o output.pdf`.
 
@@ -95,7 +95,7 @@ samtools index Gchilensis.aln.sorted.bam
 pandepth -i Gchilensis.aln.sorted.bam -w 500 -o depth # output: example/depth.win.stat.gz
 
 #run the python script
-python gc-depth-plot.py Gracilaria_chilensis.genome.fa depth.win.stat.gz -w 500
+python gc_depth Gracilaria_chilensis.genome.fa depth.win.stat.gz -w 500
 ```
 
 Here is the final GC-depth plot output from the Python script.
