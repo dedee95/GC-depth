@@ -13,12 +13,13 @@ A very simple way to use this script is by installing it via Python PyPI.
 ```bash
 pip install gc-depth
 ```
+After installation is finished, type `gc_depth -h` to see the full help message.
 
 ```bash
-$ python gc-depth-plot.py -h
-Compute and visualize GC content vs sequencing depth per genomic window. One of rebust way to identify contamination in the genome.
+$ gc_depth -h
+Compute and visualize GC content versus sequencing depth per genomic window.
 
-Usage: gc-depth-plot.py <fasta> <pandepth_output> [options]
+Usage: gc_depth <fasta> <pandepth_output> [options]
 
 Positional arguments:
   fasta                Genome FASTA file (gzipped is also fine)
@@ -31,6 +32,7 @@ Options:
   --log-depth          Use logarithmic scale for the depth axis
   --plot-only TSV      Skip processing, re-plot from an existing combined TSV (from --output-data)
   --output-data FILE   Save merged GC and depth data to this TSV file (can be reused with --plot-only)
+  --version            Show the installed version and exit
 ```
 
 ## 2. Usage step by step 
